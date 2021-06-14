@@ -60,6 +60,7 @@ public class ANCRegisterReportBuilder extends AbstractReportBuilder {
         return Arrays.asList(
                 new Parameter("startDate", "Start Date", Date.class),
                 new Parameter("endDate", "End Date", Date.class),
+                new Parameter("facility", "Health facility", String.class),
                 new Parameter("dateBasedReporting", "", String.class)
         );
     }
@@ -67,8 +68,8 @@ public class ANCRegisterReportBuilder extends AbstractReportBuilder {
     @Override
     protected List<Mapped<DataSetDefinition>> buildDataSets(ReportDescriptor reportDescriptor, ReportDefinition reportDefinition) {
         return Arrays.asList(
-                ReportUtils.map(datasetColumns(), "startDate=${startDate},endDate=${endDate}"),
-                ReportUtils.map(ancRegisterAggregateDataSet(), "startDate=${startDate},endDate=${endDate}")
+                ReportUtils.map(datasetColumns(), "startDate=${startDate},endDate=${endDate},facility=${facility}"),
+                ReportUtils.map(ancRegisterAggregateDataSet(), "startDate=${startDate},endDate=${endDate},facility=${facility}")
         );
     }
 
@@ -80,8 +81,10 @@ public class ANCRegisterReportBuilder extends AbstractReportBuilder {
         dsd.addSortCriteria("Visit Date", SortCriteria.SortDirection.ASC);
         dsd.addParameter(new Parameter("startDate", "Start Date", Date.class));
         dsd.addParameter(new Parameter("endDate", "End Date", Date.class));
+        dsd.addParameter(new Parameter("facility", "Health facility", String.class));
 
-        String paramMapping = "startDate=${startDate},endDate=${endDate}";
+
+        String paramMapping = "startDate=${startDate},endDate=${endDate},facility=${facility}";
 
         DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName} {middleName}");
         DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
@@ -168,6 +171,8 @@ public class ANCRegisterReportBuilder extends AbstractReportBuilder {
         ANCRegisterCohortDefinition cd = new ANCRegisterCohortDefinition();
         cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
         cd.addParameter(new Parameter("endDate", "End Date", Date.class));
+        cd.addParameter(new Parameter("facility", "Health facility", String.class));
+
 
         dsd.addRowFilter(cd, paramMapping);
         return dsd;
@@ -179,6 +184,8 @@ public class ANCRegisterReportBuilder extends AbstractReportBuilder {
         cohortDsd.setName("cohortIndicator");
         cohortDsd.addParameter(new Parameter("startDate", "Start Date", Date.class));
         cohortDsd.addParameter(new Parameter("endDate", "End Date", Date.class));
+        cohortDsd.addParameter(new Parameter("facility", "Health facility", String.class));
+
 
         String indParams = "";
 
