@@ -20,6 +20,15 @@
 	if (useYearBasedPeriodField || useDateBasedPeriodField) {
 		useMonthBasedPeriodField = false;
 	}
+
+	// define facility options
+	def facilityListOptions = []
+
+	// add option for all facilities
+	facilityListOptions.add([ value: 'All', label: 'Select all' ])
+	facilityList.each { facility ->
+		facilityListOptions.add([ value: facility.locationId.toString(), label: facility.name ])
+	}
 %>
 <script type="text/javascript">
 	jQuery(function() {
@@ -105,11 +114,13 @@
 		<% params.each { name, param -> %>
 		<div class="ke-field-label">${ param.label }</div>
 		<div class="ke-field-content">
+			<% def configOptions = (param.name == "facility") ? [ options: facilityListOptions ] : [] %>
+
 			${ ui.includeFragment("kenyaui", "widget/field", [
 					formFieldName: "param[" + param.name + "]",
 					class: param.type,
 					required: true,
-					initialValue: param.defaultValue
+					config: configOptions
 			]) }
 		</div>
 		<% } %>
