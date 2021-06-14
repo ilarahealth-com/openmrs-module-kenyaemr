@@ -120,6 +120,7 @@
 					formFieldName: "param[" + param.name + "]",
 					class: param.type,
 					required: true,
+					initialValue: param.defaultValue,
 					config: configOptions
 			]) }
 		</div>
