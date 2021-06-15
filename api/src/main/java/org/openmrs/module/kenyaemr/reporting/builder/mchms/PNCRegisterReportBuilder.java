@@ -28,6 +28,7 @@ import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.DateConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDatetimeDataDefinition;
+import org.openmrs.module.reporting.data.encounter.definition.EncounterLocationDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.ConvertedPatientDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
@@ -54,6 +55,7 @@ public class PNCRegisterReportBuilder extends AbstractReportBuilder {
         return Arrays.asList(
                 new Parameter("startDate", "Start Date", Date.class),
                 new Parameter("endDate", "End Date", Date.class),
+                new Parameter("facility", "Health facility", String.class),
                 new Parameter("dateBasedReporting", "", String.class)
         );
     }
@@ -61,7 +63,7 @@ public class PNCRegisterReportBuilder extends AbstractReportBuilder {
     @Override
     protected List<Mapped<DataSetDefinition>> buildDataSets(ReportDescriptor reportDescriptor, ReportDefinition reportDefinition) {
         return Arrays.asList(
-                ReportUtils.map(datasetColumns(), "startDate=${startDate},endDate=${endDate}")
+                ReportUtils.map(datasetColumns(), "startDate=${startDate},endDate=${endDate},facility=${facility}")
         );
     }
 
@@ -72,8 +74,10 @@ public class PNCRegisterReportBuilder extends AbstractReportBuilder {
         dsd.addSortCriteria("Visit Date", SortCriteria.SortDirection.ASC);
         dsd.addParameter(new Parameter("startDate", "Start Date", Date.class));
         dsd.addParameter(new Parameter("endDate", "End Date", Date.class));
+        dsd.addParameter(new Parameter("facility", "Health facility", String.class));
 
-        String paramMapping = "startDate=${startDate},endDate=${endDate}";
+
+        String paramMapping = "startDate=${startDate},endDate=${endDate},facility=${facility}";
 
         DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName} {middleName}");
         DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
@@ -87,6 +91,8 @@ public class PNCRegisterReportBuilder extends AbstractReportBuilder {
         dsd.addColumn("Sex", new GenderDataDefinition(), "");
         dsd.addColumn("Unique Patient Number", identifierDef, null);
         dsd.addColumn("Visit Date", new EncounterDatetimeDataDefinition(),"", new DateConverter(ENC_DATE_FORMAT));
+        dsd.addColumn("Facility", new EncounterLocationDataDefinition(), "");
+
         // new columns
         dsd.addColumn("Register Number", new PNCRegisterNumberDataDefinition(),"");
         dsd.addColumn("Admission Number", new PNCAdmissionNumberDataDefinition(),"");
@@ -137,9 +143,10 @@ public class PNCRegisterReportBuilder extends AbstractReportBuilder {
         dsd.addColumn("Referred To", new PNCReferredToDataDefinition(),"");
         dsd.addColumn("Remarks", new PNCRemarksDataDefinition(),"");
         PNCRegisterCohortDefinition cd = new PNCRegisterCohortDefinition();
-        cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 
+        cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
         cd.addParameter(new Parameter("endDate", "End Date", Date.class));
+        cd.addParameter(new Parameter("facility", "Health facility", String.class));
 
         dsd.addRowFilter(cd, paramMapping);
         return dsd;

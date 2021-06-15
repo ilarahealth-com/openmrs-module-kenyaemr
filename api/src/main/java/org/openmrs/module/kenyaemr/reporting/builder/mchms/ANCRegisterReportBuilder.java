@@ -29,6 +29,7 @@ import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.DateConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDatetimeDataDefinition;
+import org.openmrs.module.reporting.data.encounter.definition.EncounterLocationDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.ConvertedPatientDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
@@ -102,6 +103,7 @@ public class ANCRegisterReportBuilder extends AbstractReportBuilder {
         dsd.addColumn("Unique Patient Number", identifierDef, null);
 
         dsd.addColumn("Visit Date", new EncounterDatetimeDataDefinition(), "", new DateConverter(ENC_DATE_FORMAT));
+        dsd.addColumn("Facility", new EncounterLocationDataDefinition(), "");
         // new columns
         dsd.addColumn("ANC Number", new ANCNumberDataDefinition(), "");
         dsd.addColumn("Study ID", new ANCStudyIdDataDefinition(), "");

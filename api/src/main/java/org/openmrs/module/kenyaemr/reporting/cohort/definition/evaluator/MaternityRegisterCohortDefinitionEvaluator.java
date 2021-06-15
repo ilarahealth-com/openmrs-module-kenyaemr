@@ -9,6 +9,7 @@
  */
 package org.openmrs.module.kenyaemr.reporting.cohort.definition.evaluator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
@@ -50,25 +51,36 @@ public class MaternityRegisterCohortDefinitionEvaluator implements CohortDefinit
 
 		context = ObjectUtil.nvl(context, new EvaluationContext());
 
-        String qry = "SELECT ld.patient_id from kenyaemr_etl.etl_mchs_delivery ld inner join kenyaemr_etl.etl_mch_enrollment e\n" +
-				" on e.patient_id = ld.patient_id where e.visit_date <= ld.visit_date\n" +
-				" and e.date_of_discontinuation is  null and date(ld.visit_date)\n" +
-				"BETWEEN date(:startDate) AND date(:endDate);";
-
-
-		SqlQueryBuilder builder = new SqlQueryBuilder();
-		builder.append(qry);
 		Date startDate = (Date)context.getParameterValue("startDate");
 		Date endDate = (Date)context.getParameterValue("endDate");
+		String facilityOptions = (String) context.getParameterValue("facility");
+
+		SqlQueryBuilder builder = new SqlQueryBuilder();
+		String qry = "";
+		Integer reportFacilityId = null;
+		if (StringUtils.isNotBlank(facilityOptions) && facilityOptions.equalsIgnoreCase("All")) {
+			qry = "SELECT ld.patient_id from kenyaemr_etl.etl_mchs_delivery ld inner join kenyaemr_etl.etl_mch_enrollment e\n" +
+					" on e.patient_id = ld.patient_id where e.visit_date <= ld.visit_date\n" +
+					" and e.date_of_discontinuation is  null and date(ld.visit_date)\n" +
+					"BETWEEN date(:startDate) AND date(:endDate);";
+		} else {
+			reportFacilityId = Integer.valueOf(facilityOptions);
+			qry = "SELECT ld.patient_id from kenyaemr_etl.etl_mchs_delivery ld inner join kenyaemr_etl.etl_mch_enrollment e\n" +
+					" on e.patient_id = ld.patient_id " +
+					" where ld.location_id in (:facilityList) and e.visit_date <= ld.visit_date\n" +
+					" and e.date_of_discontinuation is  null and date(ld.visit_date)\n" +
+					"BETWEEN date(:startDate) AND date(:endDate);";
+		}
+
+		builder.append(qry);
 		builder.addParameter("endDate", endDate);
 		builder.addParameter("startDate", startDate);
+		if (reportFacilityId != null) {
+			builder.addParameter("facilityList", reportFacilityId);
+		}
 
 		List<Integer> ptIds = evaluationService.evaluateToList(builder, Integer.class, context);
 		newCohort.setMemberIds(new HashSet<Integer>(ptIds));
-
-
-//		queryResult.getMemberIds().addAll(results);
-//		return queryResult;
 
         return new EvaluatedCohort(newCohort, definition, context);
     }
