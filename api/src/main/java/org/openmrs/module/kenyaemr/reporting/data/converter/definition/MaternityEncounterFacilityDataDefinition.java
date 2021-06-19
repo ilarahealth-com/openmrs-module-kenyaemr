@@ -11,6 +11,7 @@ package org.openmrs.module.kenyaemr.reporting.data.converter.definition;
 
 import org.openmrs.module.reporting.data.BaseDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDataDefinition;
+import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;
 import org.openmrs.module.reporting.definition.configuration.ConfigurationProperty;
 import org.openmrs.module.reporting.definition.configuration.ConfigurationPropertyCachingStrategy;
 import org.openmrs.module.reporting.evaluation.caching.Caching;
@@ -19,7 +20,7 @@ import org.openmrs.module.reporting.evaluation.caching.Caching;
  * Visit ID Column
  */
 @Caching(strategy=ConfigurationPropertyCachingStrategy.class)
-public class MaternityEncounterFacilityDataDefinition extends BaseDataDefinition implements EncounterDataDefinition {
+public class MaternityEncounterFacilityDataDefinition extends BaseDataDefinition implements PersonDataDefinition {
 
     public static final long serialVersionUID = 1L;
 
@@ -50,15 +51,5 @@ public class MaternityEncounterFacilityDataDefinition extends BaseDataDefinition
      */
     public Class<?> getDataType() {
         return Double.class;
-    }
-
-
-
-    public Integer getEncType() {
-        return encType;
-    }
-
-    public void setEncType(Integer encType) {
-        this.encType = encType;
     }
 }
