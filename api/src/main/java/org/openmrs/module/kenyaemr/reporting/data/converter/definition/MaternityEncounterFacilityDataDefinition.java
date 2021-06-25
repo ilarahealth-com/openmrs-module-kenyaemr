@@ -10,9 +10,7 @@
 package org.openmrs.module.kenyaemr.reporting.data.converter.definition;
 
 import org.openmrs.module.reporting.data.BaseDataDefinition;
-import org.openmrs.module.reporting.data.encounter.definition.EncounterDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;
-import org.openmrs.module.reporting.definition.configuration.ConfigurationProperty;
 import org.openmrs.module.reporting.definition.configuration.ConfigurationPropertyCachingStrategy;
 import org.openmrs.module.reporting.evaluation.caching.Caching;
 
@@ -24,24 +22,11 @@ public class MaternityEncounterFacilityDataDefinition extends BaseDataDefinition
 
     public static final long serialVersionUID = 1L;
 
-    @ConfigurationProperty
-    private Integer encType;
     /**
      * Default Constructor
      */
     public MaternityEncounterFacilityDataDefinition() {
         super();
-    }
-
-    /**
-     * Constructor to populate name only
-     */
-    public MaternityEncounterFacilityDataDefinition(String name) {
-        super(name);
-    }
-
-    public MaternityEncounterFacilityDataDefinition(Integer type) {
-        this.encType = type;
     }
 
     //***** INSTANCE METHODS *****
