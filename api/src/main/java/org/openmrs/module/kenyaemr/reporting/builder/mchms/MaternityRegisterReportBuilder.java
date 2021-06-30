@@ -63,7 +63,9 @@ public class MaternityRegisterReportBuilder extends AbstractHybridReportBuilder 
         CohortDefinition cd = new MaternityRegisterCohortDefinition();
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		return ReportUtils.map(cd, "startDate=${startDate},endDate=${endDate}");
+		cd.addParameter(new Parameter("facility", "Health facility", String.class));
+
+		return ReportUtils.map(cd, "startDate=${startDate},endDate=${endDate},facility=${facility}");
     }
 
     @Override
@@ -76,7 +78,7 @@ public class MaternityRegisterReportBuilder extends AbstractHybridReportBuilder 
 
 
         return Arrays.asList(
-                ReportUtils.map(allPatientsDSD, "startDate=${startDate},endDate=${endDate}"),
+                ReportUtils.map(allPatientsDSD, "startDate=${startDate},endDate=${endDate},facility=${facility}"),
 				ReportUtils.map(maternityDataSet(), "")
         );
     }
@@ -86,6 +88,7 @@ public class MaternityRegisterReportBuilder extends AbstractHybridReportBuilder 
 		return Arrays.asList(
 				new Parameter("startDate", "Start Date", Date.class),
 				new Parameter("endDate", "End Date", Date.class),
+				new Parameter("facility", "Health facility", String.class),
 				new Parameter("dateBasedReporting", "", String.class)
 		);
 	}
@@ -95,6 +98,8 @@ public class MaternityRegisterReportBuilder extends AbstractHybridReportBuilder 
 		PatientDataSetDefinition dsd = new PatientDataSetDefinition("maternityAllClients");
 		dsd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		dsd.addParameter(new Parameter("endDate", "End Date", Date.class));
+		dsd.addParameter(new Parameter("facility", "Health facility", String.class));
+
 		PatientIdentifierType upn = MetadataUtils.existing(PatientIdentifierType.class, HivMetadata._PatientIdentifierType.UNIQUE_PATIENT_NUMBER);
 		DataConverter identifierFormatter = new ObjectFormatter("{identifier}");
 		DataDefinition identifierDef = new ConvertedPatientDataDefinition("identifier", new PatientIdentifierDataDefinition(upn.getName(), upn), identifierFormatter);
@@ -109,6 +114,7 @@ public class MaternityRegisterReportBuilder extends AbstractHybridReportBuilder 
 		// new columns
 		dsd.addColumn("Admission Number", new MaternityAdmissionNumberDataDefinition(),"");
 		dsd.addColumn("Study ID", new MaternityStudyIdDataDefinition(),"");
+		dsd.addColumn("Facility", new MaternityEncounterFacilityDataDefinition(),"");
 		dsd.addColumn("Date of Admission", new MaternityAdmissionDateDataDefinition(),"", new DateConverter(DATE_FORMAT));
 		dsd.addColumn("Number of ANC Visits", new MaternityNumberOfANCVisitsDataDefinition(),"");
 		dsd.addColumn("Name", nameDef, "");
@@ -167,6 +173,8 @@ public class MaternityRegisterReportBuilder extends AbstractHybridReportBuilder 
 		cohortDsd.setName("cohortIndicator");
 		cohortDsd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cohortDsd.addParameter(new Parameter("endDate", "End Date", Date.class));
+		cohortDsd.addParameter(new Parameter("facility", "Health facility", String.class));
+
 		String indParams = "";
 
 		cohortDsd.addColumn("clientsWithAPH", "Clients With APH", ReportUtils.map(maternityIndicatorLibrary.clientsWithAPH(), indParams), "");

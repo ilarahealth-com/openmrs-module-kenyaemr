@@ -9,6 +9,7 @@
  */
 package org.openmrs.module.kenyaemr.reporting.cohort.definition.evaluator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.annotation.Handler;
@@ -40,16 +41,30 @@ public class ANCRegisterCohortDefinitionEvaluator implements EncounterQueryEvalu
 		context = ObjectUtil.nvl(context, new EvaluationContext());
 		EncounterQueryResult queryResult = new EncounterQueryResult(definition, context);
 
-		String qry = "SELECT v.encounter_id from kenyaemr_etl.etl_mch_antenatal_visit v\n" +
-				"inner join kenyaemr_etl.etl_mch_enrollment e on v.patient_id = e.patient_id and e.date_of_discontinuation IS NULL and date(e.visit_date) <= date(v.visit_date)\n" +
-				"where date(v.visit_date) BETWEEN date(:startDate) AND date(:endDate);";
-
-		SqlQueryBuilder builder = new SqlQueryBuilder();
-		builder.append(qry);
 		Date startDate = (Date)context.getParameterValue("startDate");
 		Date endDate = (Date)context.getParameterValue("endDate");
+		String facilityOptions = (String) context.getParameterValue("facility");
+
+		SqlQueryBuilder builder = new SqlQueryBuilder();
+		String qry = "";
+		Integer reportFacilityId = null;
+		if (StringUtils.isNotBlank(facilityOptions) && facilityOptions.equalsIgnoreCase("All")) {
+			qry = "SELECT v.encounter_id from kenyaemr_etl.etl_mch_antenatal_visit v\n" +
+					"inner join kenyaemr_etl.etl_mch_enrollment e on v.patient_id = e.patient_id and e.date_of_discontinuation IS NULL and date(e.visit_date) <= date(v.visit_date)\n" +
+					"where date(v.visit_date) BETWEEN date(:startDate) AND date(:endDate);";
+		} else {
+			reportFacilityId = Integer.valueOf(facilityOptions);
+			qry = "SELECT v.encounter_id from kenyaemr_etl.etl_mch_antenatal_visit v\n" +
+					"inner join kenyaemr_etl.etl_mch_enrollment e on v.patient_id = e.patient_id and e.date_of_discontinuation IS NULL and date(e.visit_date) <= date(v.visit_date)\n" +
+					"where v.location_id in (:facilityList) and date(v.visit_date) BETWEEN date(:startDate) AND date(:endDate);";
+		}
+
+		builder.append(qry);
 		builder.addParameter("endDate", endDate);
 		builder.addParameter("startDate", startDate);
+		if (reportFacilityId != null) {
+			builder.addParameter("facilityList", reportFacilityId);
+		}
 
 		List<Integer> results = evaluationService.evaluateToList(builder, Integer.class, context);
 		queryResult.getMemberIds().addAll(results);
