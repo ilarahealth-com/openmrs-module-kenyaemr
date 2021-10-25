@@ -29,7 +29,6 @@ import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.DateConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDatetimeDataDefinition;
-import org.openmrs.module.reporting.data.encounter.definition.EncounterLocationDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.ConvertedPatientDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
@@ -69,8 +68,8 @@ public class ANCRegisterReportBuilder extends AbstractReportBuilder {
     @Override
     protected List<Mapped<DataSetDefinition>> buildDataSets(ReportDescriptor reportDescriptor, ReportDefinition reportDefinition) {
         return Arrays.asList(
-                ReportUtils.map(datasetColumns(), "startDate=${startDate},endDate=${endDate},facility=${facility}"),
-                ReportUtils.map(ancRegisterAggregateDataSet(), "startDate=${startDate},endDate=${endDate},facility=${facility}")
+                ReportUtils.map(datasetColumns(), "startDate=${startDate},endDate=${endDate}"),
+                ReportUtils.map(ancRegisterAggregateDataSet(), "startDate=${startDate},endDate=${endDate}")
         );
     }
 
@@ -103,7 +102,6 @@ public class ANCRegisterReportBuilder extends AbstractReportBuilder {
         dsd.addColumn("Unique Patient Number", identifierDef, null);
 
         dsd.addColumn("Visit Date", new EncounterDatetimeDataDefinition(), "", new DateConverter(ENC_DATE_FORMAT));
-        dsd.addColumn("Facility", new EncounterLocationDataDefinition(), "");
         // new columns
         dsd.addColumn("ANC Number", new ANCNumberDataDefinition(), "");
         dsd.addColumn("Study ID", new ANCStudyIdDataDefinition(), "");
@@ -169,6 +167,8 @@ public class ANCRegisterReportBuilder extends AbstractReportBuilder {
         dsd.addColumn("Next Appointment Date", new ANCNextAppointmentDateDataDefinition(), "", new DateConverter(ENC_DATE_FORMAT));
         dsd.addColumn("Risk Stratification", new ANCRiskStratificationDataDefinition(), "");
         dsd.addColumn("Clinical Notes", new ANCClinicalNotesDataDefinition(), "");
+        dsd.addColumn("Practitioner type", new ANCPractitionerTypeDataDefinition(), "");
+        dsd.addColumn("Practitioner name", new ANCPractitionerNameDataDefinition(), "");
 
         ANCRegisterCohortDefinition cd = new ANCRegisterCohortDefinition();
         cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
@@ -186,8 +186,6 @@ public class ANCRegisterReportBuilder extends AbstractReportBuilder {
         cohortDsd.setName("cohortIndicator");
         cohortDsd.addParameter(new Parameter("startDate", "Start Date", Date.class));
         cohortDsd.addParameter(new Parameter("endDate", "End Date", Date.class));
-        cohortDsd.addParameter(new Parameter("facility", "Health facility", String.class));
-
 
         String indParams = "";
 
@@ -216,6 +214,36 @@ public class ANCRegisterReportBuilder extends AbstractReportBuilder {
         cohortDsd.addColumn("adolescentsKnownPositive", "Adolescents Known Positive", ReportUtils.map(anc.adolescentsKnownPositive_10_19_AtANC(), indParams), "");
         cohortDsd.addColumn("adolescentsTestedPositive", "Adolescents Tested Positive", ReportUtils.map(anc.adolescentsTestedPositive_10_19_AtANC(), indParams), "");
         cohortDsd.addColumn("adolescentsStartedHaartAnc", "Adolescents Started Haart ANC", ReportUtils.map(anc.adolescentsStartedHaart_10_19_AtANC(), indParams), "");
+
+        return cohortDsd;
+    }
+
+    protected DataSetDefinition ancRegisterCustomDataSet() {
+        CohortIndicatorDataSetDefinition cohortDsd = new CohortIndicatorDataSetDefinition();
+        cohortDsd.setName("customDataset");
+        cohortDsd.addParameter(new Parameter("startDate", "Start Date", Date.class));
+        cohortDsd.addParameter(new Parameter("endDate", "End Date", Date.class));
+
+        String indParams = "startDate=${startDate},endDate=${endDate}";
+
+        cohortDsd.addColumn("enrolledInMCH", "Enrolled in MCH", ReportUtils.map(anc.enrolledInMchDuringReportingPeriod(), indParams), "");
+        cohortDsd.addColumn("everEnrolledInMCH", "Enrolled in MCH ever", ReportUtils.map(anc.everEnrolledInMch(), ""), "");
+        cohortDsd.addColumn("enrolledInMCHPercent", "% of clients enrolled in MCH", ReportUtils.map(anc.mchEnrollmentPercent(), indParams), "");
+        cohortDsd.addColumn("enrolledAtFirstAnc", "Enrolled at first attendance", ReportUtils.map(anc.enrolledInMCHAtFirstAncAttendance(), indParams), "");
+        cohortDsd.addColumn("enrolledAtFirstAncPercent", "% of clients who enrolled at first anc", ReportUtils.map(anc.enrolledInMCHAtFirstAncAttendancePercentage(), indParams), "");
+        cohortDsd.addColumn("enrolledAtFourthAnc", "Visit at fourth anc", ReportUtils.map(anc.fourthAncVisitAttendance(), indParams), "");
+        cohortDsd.addColumn("enrolledAtFourthAncPercent", "% of clients who attended the fourth anc", ReportUtils.map(anc.fourthAncVisitAttendancePercentage(), indParams), "");
+        cohortDsd.addColumn("enrolledAtEighthAnc", "Visit at eighth anc", ReportUtils.map(anc.eighthAncVisitAttendance(), indParams), "");
+        cohortDsd.addColumn("enrolledAtEighthAncPercent", "% of clients who attended the eighth anc", ReportUtils.map(anc.eighthAncVisitAttendancePercentage(), indParams), "");
+        cohortDsd.addColumn("receivedAllPreventiveServices", "Received all preventive services", ReportUtils.map(anc.receivedAllPreventiveServices(), indParams), "");
+        cohortDsd.addColumn("receivedAllPreventiveServicesPercent", "% of clients who received all preventive services", ReportUtils.map(anc.receivedAllPreventiveServicesPercentage(), indParams), "");
+        cohortDsd.addColumn("receivedSomePreventiveServices", "Received some preventive services", ReportUtils.map(anc.receivedSomePreventiveServices(), indParams), "");
+        cohortDsd.addColumn("receivedSomePreventiveServicesPercent", "% of clients who received some preventive services", ReportUtils.map(anc.receivedSomePreventiveServicesPercentage(), indParams), "");
+
+        cohortDsd.addColumn("receivedAllAncProfiling", "Received all anc profiling", ReportUtils.map(anc.receivedAllAncProfiling(), indParams), "");
+        cohortDsd.addColumn("receivedAllAncProfilingPercent", "% of clients who received all anc profiling", ReportUtils.map(anc.receivedAllAncProfilingPercentage(), indParams), "");
+        cohortDsd.addColumn("receivedSomeAncProfiling", "Received some anc profiling", ReportUtils.map(anc.receivedSomeAncProfiling(), indParams), "");
+        cohortDsd.addColumn("receivedSomeAncProfilingPercent", "% of clients who received some anc profiling", ReportUtils.map(anc.receivedSomeAncProfilingPercentage(), indParams), "");
 
         return cohortDsd;
     }
