@@ -35,7 +35,7 @@
 	<script type="text/javascript">
 
 		jq(function () {
-			jq('#mchms-discontinuation-reason input').click(onDiscontinuationReasonChange);
+			jq('#mchms-discontinuation-reason select').change(onDiscontinuationReasonChange);
 			onDiscontinuationReasonChange();
 		});
 
@@ -95,7 +95,7 @@
 								<obs conceptId="161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 									 id="mchms-discontinuation-reason"
 									 answerConceptIds="160035AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,48AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,50AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,162880AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-									 answerLabels="Completed Follow Up,Transferred out,Miscarriage,Abortion,End of study,Consent withdrawn,Died"/>
+									 answerLabels="Completed Follow Up,Transferred out,Miscarriage,Abortion,End of study,Consent withdrawn,Died,Other"/>
 							</td>
 						</tr>
 					</table>
