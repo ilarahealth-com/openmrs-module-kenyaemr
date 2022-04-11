@@ -171,4 +171,13 @@
 		</sql>
 	</changeSet>
 
+	<changeSet id="${project.parent.artifactId}-20220407-1748" author="nathan">
+		<comment>
+			Deletes chart rows from the liquibase change log table
+		</comment>
+		<sql>
+			DELETE from liquibasechangelog where lower(id) like '%Chart%';
+		</sql>
+	</changeSet>
+
 </databaseChangeLog>

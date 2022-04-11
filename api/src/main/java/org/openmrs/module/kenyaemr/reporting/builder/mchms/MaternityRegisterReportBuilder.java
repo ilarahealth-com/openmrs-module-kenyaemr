@@ -128,6 +128,7 @@ public class MaternityRegisterReportBuilder extends AbstractHybridReportBuilder 
 		dsd.addColumn("Mode of Delivery", new MaternityDeliveryModeDataDefinition(),"");
 		dsd.addColumn("Placenta Complete", new MaternityPlacentaCompleteDataDefinition(),"");
 		dsd.addColumn("Blood Loss", new MaternityBloodLossDataDefinition(),"");
+		dsd.addColumn("Place of Delivery", new MaternityPlaceOfDeliveryDataDefinition(),"");
 		dsd.addColumn("Condition after delivery", new MaternityConditionAfterDeliveryDataDefinition(),"");
 		dsd.addColumn("Deaths Audited", new MaternityDeathAuditedDataDefinition(),"");
 		dsd.addColumn("Other Delivery Complications", new MaternityOtherDeliveryComplicationsDataDefinition(),"");
