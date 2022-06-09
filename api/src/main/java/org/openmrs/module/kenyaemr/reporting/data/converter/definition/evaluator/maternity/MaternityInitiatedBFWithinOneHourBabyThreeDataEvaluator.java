@@ -36,7 +36,7 @@ public class MaternityInitiatedBFWithinOneHourBabyThreeDataEvaluator implements 
 
         String qry = "select\n" +
                 "  patient_id,\n" +
-                "  infant_three_birth_with_deformity \n" +
+                "  infant_three_bf_within_one_hour \n" +
                 "from kenyaemr_etl.etl_mchs_delivery;";
 
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();

@@ -41,7 +41,7 @@ public class MaternityUnderweightBabiesCohortDefinitionEvaluator implements Coho
         UnderWeightBabiesCohortDefinition definition = (UnderWeightBabiesCohortDefinition) cohortDefinition;
         if (definition == null)
             return null;
-        String query = "select ld.patient_id from kenyaemr_etl.etl_mchs_delivery ld where ld.birth_weight >2.5;";
+        String query = "select ld.patient_id from kenyaemr_etl.etl_mchs_delivery ld where ld.infant_one_weight >2.5 or ld.infant_two_weight >2.5 or ld.infant_three_weight >2.5 ;";
         Cohort newCohort = new Cohort();
 
         SqlQueryBuilder builder = new SqlQueryBuilder();

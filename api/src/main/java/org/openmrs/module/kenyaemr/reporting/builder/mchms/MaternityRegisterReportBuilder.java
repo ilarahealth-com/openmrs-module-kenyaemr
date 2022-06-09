@@ -144,7 +144,7 @@ public class MaternityRegisterReportBuilder extends AbstractHybridReportBuilder 
 		dsd.addColumn("Birth weight (2)", new MaternityBirthWeightTwoDataDefinition(),"");
 		dsd.addColumn("Baby Condition (2)", new MaternityBabyTwoConditionDataDefinition(),"");
 		dsd.addColumn("Initiated BF <1 Hr (2)", new MaternityInitiatedBFWithinOneHourBabyTwoDataDefinition(),"");
-		dsd.addColumn("TEO Given at Birth (2)", new MaternityTEOGivenAtBirthDataDefinition(),"");
+		dsd.addColumn("TEO Given at Birth (2)", new MaternityTEOGivenAtBirthTwoDataDefinition(),"");
 		dsd.addColumn("Baby with deformity (2)", new MaternityBabyTwoWithDeformityDataDefinition(),"");
 		dsd.addColumn("APGAR Score (2)", new MaternityApgarScoreBabyTwoDataDefinition(),"");
 		dsd.addColumn("Baby Sex (3)", new MaternityBabyThreeSexDataDefinition(),"");
