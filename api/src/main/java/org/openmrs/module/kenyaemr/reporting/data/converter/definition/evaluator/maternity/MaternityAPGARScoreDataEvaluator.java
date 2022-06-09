@@ -36,7 +36,7 @@ public class MaternityAPGARScoreDataEvaluator implements PersonDataEvaluator {
 
         String qry = "select\n" +
                 "       patient_id,\n" +
-                "       apgar_score_1min\n" +
+                "       infant_one_apgar_score_1min\n" +
                 "from kenyaemr_etl.etl_mchs_delivery;";
 
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();

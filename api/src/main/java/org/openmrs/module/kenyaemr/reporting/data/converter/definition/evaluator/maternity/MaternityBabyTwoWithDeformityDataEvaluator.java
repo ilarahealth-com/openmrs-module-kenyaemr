@@ -10,7 +10,7 @@
 package org.openmrs.module.kenyaemr.reporting.data.converter.definition.evaluator.maternity;
 
 import org.openmrs.annotation.Handler;
-import org.openmrs.module.kenyaemr.reporting.data.converter.definition.maternity.MaternityInitiatedBFWithinOneHourDataDefinition;
+import org.openmrs.module.kenyaemr.reporting.data.converter.definition.maternity.MaternityBabyTwoWithDeformityDataDefinition;
 import org.openmrs.module.reporting.data.person.EvaluatedPersonData;
 import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;
 import org.openmrs.module.reporting.data.person.evaluator.PersonDataEvaluator;
@@ -25,8 +25,8 @@ import java.util.Map;
 /**
  * Evaluates a PersonDataDefinition
  */
-@Handler(supports= MaternityInitiatedBFWithinOneHourDataDefinition.class, order=50)
-public class MaternityInitiatedBFWithinOneHourDataEvaluator implements PersonDataEvaluator {
+@Handler(supports= MaternityBabyTwoWithDeformityDataDefinition.class, order=50)
+public class MaternityBabyTwoWithDeformityDataEvaluator implements PersonDataEvaluator {
 
     @Autowired
     private EvaluationService evaluationService;
@@ -36,7 +36,7 @@ public class MaternityInitiatedBFWithinOneHourDataEvaluator implements PersonDat
 
         String qry = "select\n" +
                 "  patient_id,\n" +
-                "  infant_one_birth_with_deformity \n" +
+                "  infant_two_birth_with_deformity \n" +
                 "from kenyaemr_etl.etl_mchs_delivery;";
 
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();
