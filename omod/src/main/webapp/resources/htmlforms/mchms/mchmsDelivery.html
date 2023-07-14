@@ -68,6 +68,8 @@
 			jq('#baby-condition-triplets select').change(onTripletsBabyOutcomeChange);
             //Delivery complications
             jq('#delivery-complications select').change(complicationsChange);
+			jq('#delivery-mode select').change(onModeOfDeliveryChange);
+			jq('#tr-planned-or-unplanned-cesarian-section').hide();
             var motherComplications = jq('#delivery-complications select').val();
             if (motherComplications == 1065) {
                 jq("#explain-complications").show();
@@ -219,6 +221,14 @@
                 getField('maternal-death-audited.value').val("");
             }
         }
+		function onModeOfDeliveryChange() {
+			if (getValue('delivery-mode.value') == 1171) {
+				jq('#tr-planned-or-unplanned-cesarian-section').show();
+			}else{
+				jq('#tr-planned-or-unplanned-cesarian-section').hide();
+				getField('planned-or-unplanned-cesarian-section.value').val("");
+			}
+		}
         function onDeliveryOutcomeChange() {
             if (getValue('delivery-outcome.value') == 159913) {
                 jq('#single').show();
@@ -640,6 +650,15 @@
 							<td>Date and time of Delivery:</td>
 							<td>
 								<obs conceptId="5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowTime="true" required = "true"/>
+							</td>
+						</tr>
+						<tr id="tr-planned-or-unplanned-cesarian-section">
+							<td>Select if elective or emergency cesarean section</td>
+							<td>
+								<obs conceptId="165676AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+									 answerConceptIds="155886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,155887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+									 answerLabels="Delivery by elective caesarean section,Delivery by emergency caesarean section"
+								/>
 							</td>
 						</tr>
 						<tr>
