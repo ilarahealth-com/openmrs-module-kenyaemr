@@ -1012,43 +1012,6 @@
 								</tr>
 							</table>
 							<table>
-								<br />
-								<legend><strong>Ultrasound</strong></legend>
-								<hr />
-<!--                                 consider adding obs group-->
-								<tr>
-									<td>Number of fetuses</td>
-									<td>
-										<obs conceptId="3e9d739a-2d7f-40b0-a5de-938ab9c48613" id="no-fetuses"/>
-										<span class="value"><recentObs conceptId="3e9d739a-2d7f-40b0-a5de-938ab9c48613"/></span>
-									</td>
-									<td>Amniotic fluid</td>
-									<td>
-										<obs conceptId="163446AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-											 answerConceptIds="1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,afd799df-69e8-4592-9c35-27a324b950c5,159985AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-											 answerLabels="Normal,Excess,Scanty"/>
-										<span class="value"><recentObs conceptId="163446AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></span>
-									</td>
-									<td>Fetal growth</td>
-									<td>
-										<obs conceptId="8cf1fc95-7806-4520-957e-f6f16a9d9782"
-											 answerConceptIds="1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,118245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-											 answerLabels="Normal,Fetal growth restriction(IUGR)"/>
-										<span class="value"><recentObs conceptId="8cf1fc95-7806-4520-957e-f6f16a9d9782"/></span>
-									</td>
-								</tr>
-								<tr>
-									<td>Placental pathology</td>
-									<td>
-										<obs conceptId="a25298d6-a771-415d-b690-014a38ee9e17"
-											 answerConceptIds="1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,130108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,114127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-											 answerLabels="Normal,Placental Abruption,Placenta Praevia"/>
-										<span class="value"><recentObs conceptId="a25298d6-a771-415d-b690-014a38ee9e17"/></span>
-									</td>
-								</tr>
-							</table>
-
-							<table>
 								<br/>
 								<legend><strong>Urinalysis</strong></legend>
 								<hr />
@@ -1282,6 +1245,121 @@
 							</table>
 						</td>
 					</tr>
+
+			</table>
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<legend>Ultrasound results</legend>
+			<table align="center" width="100%" class="tb1">
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td>Ultrasound performed during current visit:
+									<obs conceptId="159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+										 answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+										 answerLabels="Yes,No"/>
+									<span class="value"><recentObs
+											conceptId="159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></span>
+								</td>
+								<td>Ultrasound sequence number:</td>
+								<td>
+									<obs conceptId="b870b18c-4f4a-4758-ab9c-196014b7286b" style="dropdown">
+										<options>
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+										</options>
+									</obs>
+								</td>
+								<td>Number of fetuses:</td>
+								<td>
+									<obs conceptId="3e9d739a-2d7f-40b0-a5de-938ab9c48613" id="no-fetuses"/>
+									<span class="value"><recentObs
+											conceptId="3e9d739a-2d7f-40b0-a5de-938ab9c48613"/></span>
+								</td>
+							</tr>
+							<tr>
+								<td>Amniotic fluid:</td>
+								<td>
+									<obs conceptId="163446AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+										 answerConceptIds="1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,afd799df-69e8-4592-9c35-27a324b950c5,159985AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+										 answerLabels="Normal,Excess,Scanty"/>
+									<span class="value"><recentObs
+											conceptId="163446AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></span>
+								</td>
+								<td>Fetal growth:</td>
+								<td>
+									<obs conceptId="8cf1fc95-7806-4520-957e-f6f16a9d9782"
+										 answerConceptIds="1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,118245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+										 answerLabels="Normal,Fetal growth restriction(IUGR)"/>
+									<span class="value"><recentObs
+											conceptId="8cf1fc95-7806-4520-957e-f6f16a9d9782"/></span>
+								</td>
+								<td>Placental pathology:</td>
+								<td>
+									<obs conceptId="a25298d6-a771-415d-b690-014a38ee9e17"
+										 answerConceptIds="1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,130108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,114127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+										 answerLabels="Normal,Placental Abruption,Placenta Praevia"/>
+									<span class="value"><recentObs
+											conceptId="a25298d6-a771-415d-b690-014a38ee9e17"/></span>
+								</td>
+							</tr>
+							<tr>
+								<td>Gestational sac diameter (mm):</td>
+								<td>
+									<obs conceptId="27f7891f-5274-497b-8ccf-9ee1c7b0e6bf"/>
+									<span class="value"><recentObs
+											conceptId="27f7891f-5274-497b-8ccf-9ee1c7b0e6bf"/></span>
+								</td>
+								<td>Head circumference (HC, cm):</td>
+								<td>
+									<obs conceptId="5314AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+									<span class="value"><recentObs
+											conceptId="5314AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></span>
+								</td>
+								<td>Bipariatal diameter, (BPD, cm):</td>
+								<td>
+									<obs conceptId="f3d78378-e7d7-4fda-ab39-427fa2a6846c"/>
+									<span class="value"><recentObs
+											conceptId="f3d78378-e7d7-4fda-ab39-427fa2a6846c"/></span>
+								</td>
+							</tr>
+							<tr>
+								<td>Abdominal circumference (AC, cm):</td>
+								<td>
+									<obs conceptId="ea6f94dd-702e-44c7-ad38-9dde080efb26"/>
+									<span class="value"><recentObs
+											conceptId="ea6f94dd-702e-44c7-ad38-9dde080efb26"/></span>
+								</td>
+								<td>Femur length (FL, cm):</td>
+								<td>
+									<obs conceptId="2eff26be-377a-4c13-bb89-dc8369fa4b96"/>
+									<span class="value"><recentObs
+											conceptId="2eff26be-377a-4c13-bb89-dc8369fa4b96"/></span>
+								</td>
+								<td>Crown-rump length (CRL, cm):</td>
+								<td>
+									<obs conceptId="aa8d284d-d258-4889-a638-9b2d77f4de01"/>
+									<span class="value"><recentObs
+											conceptId="aa8d284d-d258-4889-a638-9b2d77f4de01"/></span>
+								</td>
+							</tr>
+							<tr>
+								<td>Foetal heart rate (FHR, bpm):</td>
+								<td>
+									<obs conceptId="1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+									<span class="value"><recentObs
+											conceptId="1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></span>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
 
 			</table>
 		</td>
