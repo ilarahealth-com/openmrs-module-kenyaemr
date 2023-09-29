@@ -11,6 +11,10 @@
         kenyaui.openPanelDialog({ templateId: 'visit-summary', width: 85, height: 70, scrolling: true });
     }
 
+	function openVisitSummary() {
+		kenyaui.openPanelDialog({ templateId: 'patient-risk', width: 85, height: 70, scrolling: true });
+	}
+
 </script>
 
 <div class="ke-panelbar" style="text-align: right">
@@ -81,3 +85,10 @@
 		<button type="button" onclick="kenyaui.closeDialog();"><img src="${ ui.resourceLink("kenyaui", "images/glyphs/cancel.png") }" /> Close</button>
 	</div>
 	</div>
+
+<div id="patient-risk" title="Patient Risk" style="display: none">
+	${ ui.includeFragment("kenyaemr", "patient/patientRisk", [ patient: currentPatient, visit: visit]) }
+	<div align="center">
+		<button type="button" onclick="kenyaui.closeDialog();"><img src="${ ui.resourceLink("kenyaui", "images/glyphs/cancel.png") }" /> Close</button>
+	</div>
+</div>
