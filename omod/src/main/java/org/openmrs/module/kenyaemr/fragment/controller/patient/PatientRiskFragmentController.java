@@ -60,48 +60,58 @@ public class PatientRiskFragmentController {
     Concept ANC_VISIT_NUMBER = Dictionary.getConcept("1425AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
     public void controller(@FragmentParam("patient") Patient patient, FragmentModel model) {
-        List<Obs> obs = null
-        Obs haemoglobin = getLatestObs(patient, HAEMOGLOBIN)
+        List<Obs> obs = null;
+        Obs haemoglobin = getLatestObs(patient, HAEMOGLOBIN);
         if (haemoglobin != null) {
-            obs.add(haemoglobin)
+            obs.add(haemoglobin);
         }
-        Obs bp_systolic = getLatestObs(patient, BP_SYSTOLIC)
+        Obs bp_systolic = getLatestObs(patient, BP_SYSTOLIC);
         if (bp_systolic != null) {
-            obs.add(bp_systolic)
+            obs.add(bp_systolic);
         }
-        Obs bp_diastolic = getLatestObs(patient, BP_DIASTOLIC)
+        Obs bp_diastolic = getLatestObs(patient, BP_DIASTOLIC);
         if (bp_diastolic != null) {
-            obs.add(bp_diastolic)
+            obs.add(bp_diastolic);
         }
-        Obs pallor = getLatestObs(patient, PALLOR)
+        Obs pallor = getLatestObs(patient, PALLOR);
         if (pallor != null) {
-            obs.add(pallor)
+            obs.add(pallor);
         }
-        Obs pulse = getLatestObs(patient, PULSE_RATE)
+        Obs pulse = getLatestObs(patient, PULSE_RATE);
         if (pulse != null) {
-            obs.add(pulse)
+            obs.add(pulse);
         }
-        Obs anaemia = getLatestObs(patient, ANAEMIA)
+        Obs anaemia = getLatestObs(patient, ANAEMIA);
         if (anaemia != null) {
-            obs.add(anaemia)
+            obs.add(anaemia);
         }
-        Obs edd = getLatestObs(patient, ESTIMATED_DELIVERY_DATE)
+        Obs edd = getLatestObs(patient, ESTIMATED_DELIVERY_DATE);
         if (edd != null) {
-            obs.add(edd)
+            obs.add(edd);
         }
-        Obs fhr = getLatestObs(patient, FOETAL_HEART_RATE)
+        Obs fhr = getLatestObs(patient, FOETAL_HEART_RATE);
         if (fhr != null) {
-            obs.add(fhr)
+            obs.add(fhr);
         }
-        Obs visitNumber = getLatestObs(patient, ANC_VISIT_NUMBER)
+        Obs visitNumber = getLatestObs(patient, ANC_VISIT_NUMBER);
         if (visitNumber != null) {
-            obs.add(visitNumber)
+            obs.add(visitNumber);
         }
         model.addAttribute("riskParams", getRiskParams(obs));
     }
 
     private SimpleObject getRiskParams(List<Obs> obsList) {
         Double haemoglobin = null;
+        String pallor = null;
+        Double pulse = null;
+        Double bp_systolic = null;
+        Double bp_diastolic = null;
+        String anaemia = null;
+        String bp = null;
+        String edd = null;
+        Double fhr = null;
+        Double visitNumber = null;
+        String visitDate = null;
 
         Map<String, Object> riskParamsMap = new HashMap<String, Object>();
         for (Obs obs : obsList) {
@@ -138,22 +148,21 @@ public class PatientRiskFragmentController {
             } else if (obs.getConcept().equals(ESTIMATED_DELIVERY_DATE)) {
                 edd = DATE_FORMAT.format(obs.getValueDate());
                 if (!riskParamsMap.keySet().contains("edd")) {
-                    riskParamsdfsMap.put("edd", edd);
+                    riskParamsMap.put("edd", edd);
                 }
             } else if (obs.getConcept().equals(FOETAL_HEART_RATE)) {
                 fhr = obs.getValueNumeric();
                 if (!riskParamsMap.keySet().contains("fhr")) {
-                    riskParamsdfsMap.put("fhr", fhr.intValue());
+                    riskParamsMap.put("fhr", fhr.intValue());
                 }
-            }
-            else if (obs.getConcept().equals(ANC_VISIT_NUMBER)) {
+            } else if (obs.getConcept().equals(ANC_VISIT_NUMBER)) {
                 visitNumber = obs.getValueNumeric();
                 if (!riskParamsMap.keySet().contains("visitNumber")) {
-                    riskParamsdfsMap.put("visitNumber", visitNumber.intValue());
+                    riskParamsMap.put("visitNumber", visitNumber.intValue());
                 }
                 visitDate = DATE_FORMAT.format(obs.getDateCreated());
                 if (!riskParamsMap.keySet().contains("visitDate")) {
-                    riskParamsdfsMap.put("visitDate", visitDate);
+                    riskParamsMap.put("visitDate", visitDate);
                 }
             }
 
@@ -164,15 +173,15 @@ public class PatientRiskFragmentController {
 
 
         return SimpleObject.create(
-                "haemoglobin", riskParamsMap.get("haemoglobin") != null ? new StringBuilder().append(riskParamsMap.get("haemoglobin")),
-                "pallor", riskParamsMap.get("pallor") != null ? new StringBuilder().append(riskParamsMap.get("pallor")),
-                "pulse", riskParamsMap.get("pulse") != null ? new StringBuilder().append(riskParamsMap.get("pulse")),
-                "anaemia", riskParamsMap.get("anaemia") != null ? new StringBuilder().append(riskParamsMap.get("anaemia")),
-                "edd", riskParamsMap.get("edd") != null ? new StringBuilder().append(riskParamsMap.get("edd")),
-                "bp", riskParamsMap.get("bp") != null ? new StringBuilder().append(riskParamsMap.get("bp")),
-                "fhr", riskParamsMap.get("fhr") != null ? new StringBuilder().append(riskParamsMap.get("fhr")),
-                "visitNumber", riskParamsMap.get("visitNumber") != null ? new StringBuilder().append(riskParamsMap.get("visitNumber")),
-                "visitDate", riskParamsMap.get("visitDate") != null ? new StringBuilder().append(riskParamsMap.get("visitDate"))
+                "haemoglobin", riskParamsMap.get("haemoglobin") != null ? new StringBuilder().append(riskParamsMap.get("haemoglobin")):"",
+                "pallor", riskParamsMap.get("pallor") != null ? new StringBuilder().append(riskParamsMap.get("pallor")):"",
+                "pulse", riskParamsMap.get("pulse") != null ? new StringBuilder().append(riskParamsMap.get("pulse")):"",
+                "anaemia", riskParamsMap.get("anaemia") != null ? new StringBuilder().append(riskParamsMap.get("anaemia")):"",
+                "edd", riskParamsMap.get("edd") != null ? new StringBuilder().append(riskParamsMap.get("edd")):"",
+                "bp", riskParamsMap.get("bp") != null ? new StringBuilder().append(riskParamsMap.get("bp")):"",
+                "fhr", riskParamsMap.get("fhr") != null ? new StringBuilder().append(riskParamsMap.get("fhr")):"",
+                "visitNumber", riskParamsMap.get("visitNumber") != null ? new StringBuilder().append(riskParamsMap.get("visitNumber")):"",
+                "visitDate", riskParamsMap.get("visitDate") != null ? new StringBuilder().append(riskParamsMap.get("visitDate")):""
         );
     }
 
