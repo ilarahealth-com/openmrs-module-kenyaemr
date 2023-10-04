@@ -118,12 +118,12 @@ public class PatientRiskFragmentController {
             } else if (obs.getConcept().getConceptId().equals(PULSE_RATE_CONCEPT_ID)) {
                 pulse = obs.getValueNumeric();
                 if (!riskParamsMap.keySet().contains("pulse")) {
-                    riskParamsMap.put("pulse", pallor);
+                    riskParamsMap.put("pulse", pulse);
                 }
             } else if (obs.getConcept().getConceptId().equals(ANAEMIA_CONCEPT_ID)) {
                 anaemia = obs.getValueCoded().getDisplayString();
                 if (!riskParamsMap.keySet().contains("anaemia")) {
-                    riskParamsMap.put("anaemia", pallor);
+                    riskParamsMap.put("anaemia", anaemia);
                 }
             } else if (obs.getConcept().getConceptId().equals(BP_SYSTOLIC_CONCEPT_ID)) {
                 bp_systolic = obs.getValueNumeric();
