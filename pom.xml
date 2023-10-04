@@ -302,8 +302,8 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
-                        <target>1.8</target>
-                        <source>1.8</source>
+                        <target>1.6</target>
+                        <source>1.6</source>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -383,7 +383,7 @@
         <repository>
             <id>openmrs-repo</id>
             <name>OpenMRS Nexus Repository</name>
-            <url>https://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
+            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
         </repository>
     </repositories>
 
@@ -391,7 +391,7 @@
         <pluginRepository>
             <id>openmrs-repo</id>
             <name>OpenMRS Nexus Repository</name>
-            <url>https://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
+            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -402,12 +402,12 @@
         <repository>
             <id>openmrs-repo-modules</id>
             <name>Modules</name>
-            <url>https://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url>
+            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url>
         </repository>
         <snapshotRepository>
             <id>openmrs-repo-snapshots</id>
             <name>OpenMRS Snapshots</name>
-            <url>https://mavenrepo.openmrs.org/nexus/content/repositories/snapshots</url>
+            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
