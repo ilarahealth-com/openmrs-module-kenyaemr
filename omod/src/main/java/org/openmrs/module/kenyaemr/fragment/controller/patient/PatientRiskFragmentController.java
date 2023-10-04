@@ -12,30 +12,20 @@ package org.openmrs.module.kenyaemr.fragment.controller.patient;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
-import org.openmrs.Encounter;
-import org.openmrs.Form;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
-import org.openmrs.Visit;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.ObsService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.kenyaemr.Dictionary;
-import org.openmrs.module.kenyaemr.Metadata;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.annotation.FragmentParam;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Patient risk fragment
@@ -49,51 +39,51 @@ public class PatientRiskFragmentController {
     SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy");
 
     // triage concepts
-    Concept HAEMOGLOBIN = Dictionary.getConcept("21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    Concept BP_SYSTOLIC = Dictionary.getConcept("5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    Concept BP_DIASTOLIC = Dictionary.getConcept("5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    Concept PALLOR = Dictionary.getConcept("5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    Concept PULSE_RATE = Dictionary.getConcept("5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    Concept ANAEMIA = Dictionary.getConcept("121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    Concept ESTIMATED_DELIVERY_DATE = Dictionary.getConcept("5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    Concept FOETAL_HEART_RATE = Dictionary.getConcept("1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    Concept ANC_VISIT_NUMBER = Dictionary.getConcept("1425AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    String HAEMOGLOBIN_CONCEPT_ID = "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    String BP_SYSTOLIC_CONCEPT_ID = "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    String BP_DIASTOLIC_CONCEPT_ID = "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    String PALLOR_CONCEPT_ID = "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    String PULSE_RATE_CONCEPT_ID = "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    String ANAEMIA_CONCEPT_ID = "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    String ESTIMATED_DELIVERY_DATE_CONCEPT_ID = "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    String FOETAL_HEART_RATE_CONCEPT_ID = "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    String ANC_VISIT_NUMBER_CONCEPT_ID = "1425AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
     public void controller(@FragmentParam("patient") Patient patient, FragmentModel model) {
         List<Obs> obs = null;
-        Obs haemoglobin = getLatestObs(patient, HAEMOGLOBIN);
+        Obs haemoglobin = getLatestObs(patient, HAEMOGLOBIN_CONCEPT_ID);
         if (haemoglobin != null) {
             obs.add(haemoglobin);
         }
-        Obs bp_systolic = getLatestObs(patient, BP_SYSTOLIC);
+        Obs bp_systolic = getLatestObs(patient, BP_SYSTOLIC_CONCEPT_ID);
         if (bp_systolic != null) {
             obs.add(bp_systolic);
         }
-        Obs bp_diastolic = getLatestObs(patient, BP_DIASTOLIC);
+        Obs bp_diastolic = getLatestObs(patient, BP_DIASTOLIC_CONCEPT_ID);
         if (bp_diastolic != null) {
             obs.add(bp_diastolic);
         }
-        Obs pallor = getLatestObs(patient, PALLOR);
+        Obs pallor = getLatestObs(patient, PALLOR_CONCEPT_ID);
         if (pallor != null) {
             obs.add(pallor);
         }
-        Obs pulse = getLatestObs(patient, PULSE_RATE);
+        Obs pulse = getLatestObs(patient, PULSE_RATE_CONCEPT_ID);
         if (pulse != null) {
             obs.add(pulse);
         }
-        Obs anaemia = getLatestObs(patient, ANAEMIA);
+        Obs anaemia = getLatestObs(patient, ANAEMIA_CONCEPT_ID);
         if (anaemia != null) {
             obs.add(anaemia);
         }
-        Obs edd = getLatestObs(patient, ESTIMATED_DELIVERY_DATE);
+        Obs edd = getLatestObs(patient, ESTIMATED_DELIVERY_DATE_CONCEPT_ID);
         if (edd != null) {
             obs.add(edd);
         }
-        Obs fhr = getLatestObs(patient, FOETAL_HEART_RATE);
+        Obs fhr = getLatestObs(patient, FOETAL_HEART_RATE_CONCEPT_ID);
         if (fhr != null) {
             obs.add(fhr);
         }
-        Obs visitNumber = getLatestObs(patient, ANC_VISIT_NUMBER);
+        Obs visitNumber = getLatestObs(patient, ANC_VISIT_NUMBER_CONCEPT_ID);
         if (visitNumber != null) {
             obs.add(visitNumber);
         }
@@ -115,47 +105,47 @@ public class PatientRiskFragmentController {
 
         Map<String, Object> riskParamsMap = new HashMap<String, Object>();
         for (Obs obs : obsList) {
-            if (obs.getConcept().equals(HAEMOGLOBIN)) {
+            if (obs.getConcept().getConceptId().equals(HAEMOGLOBIN_CONCEPT_ID)) {
                 haemoglobin = obs.getValueNumeric();
                 if (!riskParamsMap.keySet().contains("haemoglobin")) {
                     riskParamsMap.put("haemoglobin", haemoglobin);
                 }
-            } else if (obs.getConcept().equals(PALLOR)) {
-                pallor = obs.getValueCoded();
+            } else if (obs.getConcept().getConceptId().equals(PALLOR_CONCEPT_ID)) {
+                pallor = obs.getValueCoded().getDisplayString();
                 if (!riskParamsMap.keySet().contains("pallor")) {
                     riskParamsMap.put("pallor", pallor);
                 }
-            } else if (obs.getConcept().equals(PULSE_RATE)) {
+            } else if (obs.getConcept().getConceptId().equals(PULSE_RATE_CONCEPT_ID)) {
                 pulse = obs.getValueNumeric();
                 if (!riskParamsMap.keySet().contains("pulse")) {
                     riskParamsMap.put("pulse", pallor);
                 }
-            } else if (obs.getConcept().equals(ANAEMIA)) {
-                anaemia = obs.getValueCoded();
+            } else if (obs.getConcept().getConceptId().equals(ANAEMIA_CONCEPT_ID)) {
+                anaemia = obs.getValueCoded().getDisplayString();
                 if (!riskParamsMap.keySet().contains("anaemia")) {
                     riskParamsMap.put("anaemia", pallor);
                 }
-            } else if (obs.getConcept().equals(BP_SYSTOLIC)) {
+            } else if (obs.getConcept().getConceptId().equals(BP_SYSTOLIC_CONCEPT_ID)) {
                 bp_systolic = obs.getValueNumeric();
                 if (!riskParamsMap.keySet().contains("bp_systolic")) {
                     riskParamsMap.put("bp_systolic", bp_systolic.intValue());
                 }
-            } else if (obs.getConcept().equals(BP_DIASTOLIC)) {
+            } else if (obs.getConcept().getConceptId().equals(BP_DIASTOLIC_CONCEPT_ID)) {
                 bp_diastolic = obs.getValueNumeric();
                 if (!riskParamsMap.keySet().contains("bp_diastolic")) {
                     riskParamsMap.put("bp_diastolic", bp_diastolic.intValue());
                 }
-            } else if (obs.getConcept().equals(ESTIMATED_DELIVERY_DATE)) {
+            } else if (obs.getConcept().getConceptId().equals(ESTIMATED_DELIVERY_DATE_CONCEPT_ID)) {
                 edd = DATE_FORMAT.format(obs.getValueDate());
                 if (!riskParamsMap.keySet().contains("edd")) {
                     riskParamsMap.put("edd", edd);
                 }
-            } else if (obs.getConcept().equals(FOETAL_HEART_RATE)) {
+            } else if (obs.getConcept().getConceptId().equals(FOETAL_HEART_RATE_CONCEPT_ID)) {
                 fhr = obs.getValueNumeric();
                 if (!riskParamsMap.keySet().contains("fhr")) {
                     riskParamsMap.put("fhr", fhr.intValue());
                 }
-            } else if (obs.getConcept().equals(ANC_VISIT_NUMBER)) {
+            } else if (obs.getConcept().getConceptId().equals(ANC_VISIT_NUMBER_CONCEPT_ID)) {
                 visitNumber = obs.getValueNumeric();
                 if (!riskParamsMap.keySet().contains("visitNumber")) {
                     riskParamsMap.put("visitNumber", visitNumber.intValue());
