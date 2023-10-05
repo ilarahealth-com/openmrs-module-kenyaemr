@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * Patient risk fragment
@@ -50,7 +51,7 @@ public class PatientRiskFragmentController {
     String ANC_VISIT_NUMBER_CONCEPT_ID = "1425AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
     public void controller(@FragmentParam("patient") Patient patient, FragmentModel model) {
-        List<Obs> obs = null;
+        List<Obs> obs = new ArrayList<Obs>();
         Obs haemoglobin = getLatestObs(patient, HAEMOGLOBIN_CONCEPT_ID);
         if (haemoglobin != null) {
             obs.add(haemoglobin);
@@ -91,17 +92,17 @@ public class PatientRiskFragmentController {
     }
 
     private SimpleObject getRiskParams(List<Obs> obsList) {
-        Double haemoglobin = null;
-        String pallor = null;
-        Double pulse = null;
-        Double bp_systolic = null;
-        Double bp_diastolic = null;
-        String anaemia = null;
-        String bp = null;
-        String edd = null;
-        Double fhr = null;
-        Double visitNumber = null;
-        String visitDate = null;
+        Double haemoglobin = 0.0;
+        String pallor = "";
+        Double pulse = 0.0;
+        Double bp_systolic = 0.0;
+        Double bp_diastolic = 0.0;
+        String anaemia = "";
+        String bp = "";
+        String edd = "";
+        Double fhr = 0.0;
+        Double visitNumber = 0.0;
+        String visitDate = "";
 
         Map<String, Object> riskParamsMap = new HashMap<String, Object>();
         for (Obs obs : obsList) {
