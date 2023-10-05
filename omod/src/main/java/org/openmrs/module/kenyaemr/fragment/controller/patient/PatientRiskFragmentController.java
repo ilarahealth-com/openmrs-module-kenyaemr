@@ -111,7 +111,7 @@ public class PatientRiskFragmentController {
                     riskParamsMap.put("haemoglobin", haemoglobin);
                 }
             } else if (obs.getConcept().getConceptId().equals(PALLOR_CONCEPT_ID)) {
-                pallor = obs.getValueCoded().getDisplayString();
+                pallor = obs.getValueCoded().getName().getName();
                 if (!riskParamsMap.keySet().contains("pallor")) {
                     riskParamsMap.put("pallor", pallor);
                 }
@@ -121,7 +121,7 @@ public class PatientRiskFragmentController {
                     riskParamsMap.put("pulse", pulse);
                 }
             } else if (obs.getConcept().getConceptId().equals(ANAEMIA_CONCEPT_ID)) {
-                anaemia = obs.getValueCoded().getDisplayString();
+                anaemia = obs.getValueCoded().getName().getName();
                 if (!riskParamsMap.keySet().contains("anaemia")) {
                     riskParamsMap.put("anaemia", anaemia);
                 }
