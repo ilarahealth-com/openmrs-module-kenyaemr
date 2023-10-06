@@ -11,13 +11,14 @@
         kenyaui.openPanelDialog({ templateId: 'visit-summary', width: 85, height: 70, scrolling: true });
     }
 
-	function openVisitSummary() {
+	function openPatientRisk() {
 		kenyaui.openPanelDialog({ templateId: 'patient-risk', width: 85, height: 70, scrolling: true });
 	}
 
 </script>
 
 <div class="ke-panelbar" style="text-align: right">
+	<button type="button" onclick="openPatientRisk();"><img src="${ ui.resourceLink("kenyaui", "images/buttons/summary.png") }" /> Patient Risk</button>
 	<% if (visit) { %>
 	<button type="button" onclick="openVisitSummary();"><img src="${ ui.resourceLink("kenyaui", "images/buttons/summary.png") }" /> Visit Summary</button>
 	<%= ui.includeFragment("kenyaui", "widget/dialogForm", [
