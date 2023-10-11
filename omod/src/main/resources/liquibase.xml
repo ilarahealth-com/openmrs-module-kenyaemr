@@ -180,4 +180,109 @@
 		</sql>
 	</changeSet>
 
+	<changeSet id="ilara-20231011103500" author="IlaraHealth">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="pph_risk_score" schemaName="openmrs"/>
+			</not>
+		</preConditions>
+		<comment>
+			PPH Score
+		</comment>
+		<createTable tableName="pph_risk_score">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="patient_id" type="int">
+				<constraints nullable="false"/>
+			</column>
+			<column name="result" type="varchar(50)"/>
+			<column name="result_probability" type="varchar(50)"/>
+			<column name="pallor_score" type="varchar(50)"/>
+			<column name="hb_levels_score" type="varchar(50)"/>
+			<column name="third_anc_visit_score" type="varchar(50)"/>
+			<column name="dbp_score" type="varchar(50)"/>
+			<column name="respiratory_rate_score" type="varchar(50)"/>
+			<column name="creator" type="int">
+				<constraints nullable="false"/>
+			</column>
+			<column name="date_created" type="datetime">
+				<constraints nullable="false"/>
+			</column>
+			<column name="changed_by" type="int"/>
+			<column name="date_changed" type="datetime"/>
+			<column name="voided" type="tinyint" defaultValueNumeric="0">
+				<constraints nullable="false"/>
+			</column>
+			<column name="date_voided" type="datetime"/>
+			<column name="voided_by" type="int"/>
+			<column name="void_reason" type="varchar(255)"/>
+			<column name="uuid" type="char(38)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint constraintName="pph_risk_score_creator_fk"
+								 baseTableName="pph_risk_score" baseColumnNames="creator"
+								 referencedTableName="users" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="pph_risk_score_changed_by_fk"
+								 baseTableName="pph_risk_score" baseColumnNames="changed_by"
+								 referencedTableName="users" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="pph_risk_score_voided_by_fk"
+								 baseTableName="pph_risk_score" baseColumnNames="voided_by"
+								 referencedTableName="users" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="pph_risk_score_id_fk"
+								 baseTableName="pph_risk_score" baseColumnNames="patient_id"
+								 referencedTableName="patient" referencedColumnNames="patient_id"/>
+	</changeSet>
+
+	<changeSet id="ilara-20231011105100" author="IlaraHealth">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="cs_risk_score" schemaName="openmrs"/>
+			</not>
+		</preConditions>
+		<comment>
+			C-section Score
+		</comment>
+		<createTable tableName="cs_risk_score">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="patient_id" type="int">
+				<constraints nullable="false"/>
+			</column>
+			<column name="cs_probability" type="varchar(50)"/>
+			<column name="risk_level" type="varchar(50)"/>
+			<column name="creator" type="int">
+				<constraints nullable="false"/>
+			</column>
+			<column name="date_created" type="datetime">
+				<constraints nullable="false"/>
+			</column>
+			<column name="changed_by" type="int"/>
+			<column name="date_changed" type="datetime"/>
+			<column name="voided" type="tinyint" defaultValueNumeric="0">
+				<constraints nullable="false"/>
+			</column>
+			<column name="date_voided" type="datetime"/>
+			<column name="voided_by" type="int"/>
+			<column name="void_reason" type="varchar(255)"/>
+			<column name="uuid" type="char(38)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint constraintName="cs_risk_score_creator_fk"
+								 baseTableName="cs_risk_score" baseColumnNames="creator"
+								 referencedTableName="users" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="cs_risk_score_changed_by_fk"
+								 baseTableName="cs_risk_score" baseColumnNames="changed_by"
+								 referencedTableName="users" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="cs_risk_score_voided_by_fk"
+								 baseTableName="cs_risk_score" baseColumnNames="voided_by"
+								 referencedTableName="users" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="cs_risk_score_id_fk"
+								 baseTableName="cs_risk_score" baseColumnNames="patient_id"
+								 referencedTableName="patient" referencedColumnNames="patient_id"/>
+	</changeSet>
+
 </databaseChangeLog>
