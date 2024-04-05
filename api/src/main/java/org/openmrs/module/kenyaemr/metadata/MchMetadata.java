@@ -40,6 +40,7 @@ public class MchMetadata extends AbstractMetadataBundle {
 		public static final String MCH_SURVEY = "ccb40e36-9c53-11eb-8e03-080027039628";
 		public static final String MCHPS_ENROLLMENT = "55c25dfa-a734-11eb-b308-42010a8e0010";
 		public static final String MCHPS_DISCONTINUATION = "464f9723-a734-11eb-b308-42010a8e0010";
+		public static final String MCHMS_RISK_SCORING = "17258077-92e2-4bed-bcdb-a7f50f9cf040";
 	}
 
 	public static final class _Form {

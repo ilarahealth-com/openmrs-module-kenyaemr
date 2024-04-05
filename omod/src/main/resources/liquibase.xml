@@ -180,4 +180,17 @@
 		</sql>
 	</changeSet>
 
+	<changeSet id="ilara-20240327103000" author="nkorir">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM encounter_type WHERE uuid = '17258077-92e2-4bed-bcdb-a7f50f9cf040';</sqlCheck>
+		</preConditions>
+		<comment>
+			Creates the Risk Scoring encounter type if it doesn't exist
+		</comment>
+		<sql>
+			INSERT INTO encounter_type (`name`, `description`, `creator`, `date_created`, `retired`, `uuid`)
+			VALUES ('Risk Scoring', 'MCH Risk Scoring', '1', '2024-03-27 10:30:00', '0', '17258077-92e2-4bed-bcdb-a7f50f9cf040');
+		</sql>
+	</changeSet>
+
 </databaseChangeLog>
