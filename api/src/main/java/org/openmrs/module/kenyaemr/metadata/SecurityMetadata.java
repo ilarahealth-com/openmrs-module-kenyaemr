@@ -82,7 +82,8 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 				EmrConstants.APP_DEFAULTER_TRACING,
 				EmrConstants.APP_HIV_TESTING,
 				EmrConstants.APP_PREP,
-				EmrConstants.APP_AIR
+				EmrConstants.APP_AIR,
+				EmrConstants.APP_ILARA_HEALTH_MODULE
 		};
 
 		// Ensure a privilege exists for each app. App framework does create these but not always before this
@@ -173,6 +174,7 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 						app(EmrConstants.APP_DEFAULTER_TRACING),
 						app(EmrConstants.APP_PREP),
 						app(EmrConstants.APP_AIR),
+						app(EmrConstants.APP_ILARA_HEALTH_MODULE),
 						_Privilege.MANAGE_DRUG_ORDERS,
 						_Privilege.VIEW_LEGACY_INTERFACE,
 						_Privilege.MANAGE_AIR
@@ -193,6 +195,7 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 						app(EmrConstants.APP_DEFAULTER_TRACING),
 						app(EmrConstants.APP_PREP),
 						app(EmrConstants.APP_AIR),
+						app(EmrConstants.APP_ILARA_HEALTH_MODULE),
 						_Privilege.VIEW_LEGACY_INTERFACE
 				)
 		));

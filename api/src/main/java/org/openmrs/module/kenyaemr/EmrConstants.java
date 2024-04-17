@@ -40,6 +40,7 @@ public class EmrConstants {
 	public static final String APP_PREP = MODULE_ID + ".prep";
 	public static final String APP_KP = KP_MODULE_ID + ".keypopulation.provider";
 	public static final String APP_AIR = FACILITY_REPORTING_MODULE_ID + ".facilityReporting.air";
+	public static final String APP_ILARA_HEALTH_MODULE = ".ilarahealth";
 
 	/**
 	 * Global property names
