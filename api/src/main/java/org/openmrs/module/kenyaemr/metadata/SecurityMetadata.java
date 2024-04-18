@@ -118,7 +118,8 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 						app(EmrConstants.APP_FACILITY_DASHBOARD),
 						app(EmrConstants.APP_DEFAULTER_TRACING),
 						app(EmrConstants.APP_PREP),
-						app(EmrConstants.APP_AIR)
+						app(EmrConstants.APP_AIR),
+						app(EmrConstants.APP_ILARA_HEALTH_MODULE)
 				)
 		));
 
@@ -154,6 +155,7 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 						app(EmrConstants.APP_DEFAULTER_TRACING),
 						app(EmrConstants.APP_PREP),
 						app(EmrConstants.APP_AIR),
+						app(EmrConstants.APP_ILARA_HEALTH_MODULE),
 						_Privilege.VIEW_LEGACY_INTERFACE
 				)
 		));
@@ -258,6 +260,7 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 				idSet(_Role.API_PRIVILEGES_VIEW_AND_EDIT),
 				idSet(
 						app(EmrConstants.APP_AIR),
+						app(EmrConstants.APP_ILARA_HEALTH_MODULE),
 						app(EmrConstants.APP_DIRECTORY),
 						app(EmrConstants.APP_FACILITIES),
 						_Privilege.VIEW_LEGACY_INTERFACE,
