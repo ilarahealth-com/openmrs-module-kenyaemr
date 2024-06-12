@@ -193,4 +193,54 @@
 		</sql>
 	</changeSet>
 
+	<changeSet id="ilara-20240611141500" author="nkorir">
+		<comment>
+			UPDATE Risk Scoring encounter to PPH Risk Scoring encounter
+		</comment>
+		<sql>
+			update encounter_type
+			set name='PPH Risk Scoring', description='MCH PPH Risk Scoring'
+			where uuid='17258077-92e2-4bed-bcdb-a7f50f9cf040';
+		</sql>
+	</changeSet>
+
+	<changeSet id="ilara-20240611142000" author="nkorir">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM encounter_type WHERE uuid = 'ea9e89ee-3022-4d13-94d6-0c5eb662399d';</sqlCheck>
+		</preConditions>
+		<comment>
+			Creates the PPH Rule Risk Scoring encounter type if it doesn't exist
+		</comment>
+		<sql>
+			INSERT INTO encounter_type (`name`, `description`, `creator`, `date_created`, `retired`, `uuid`)
+			VALUES ('PPH Rule Risk Scoring', 'MCH PPH Rule Risk Scoring', '1', '2024-06-11 14:20:00', '0', 'ea9e89ee-3022-4d13-94d6-0c5eb662399d');
+		</sql>
+	</changeSet>
+
+	<changeSet id="ilara-20240611142500" author="nkorir">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM encounter_type WHERE uuid = 'd1c06861-85e2-441c-b7a6-55a939f41a3e';</sqlCheck>
+		</preConditions>
+		<comment>
+			Creates the PTB Risk Scoring encounter type if it doesn't exist
+		</comment>
+		<sql>
+			INSERT INTO encounter_type (`name`, `description`, `creator`, `date_created`, `retired`, `uuid`)
+			VALUES ('PTB Risk Scoring', 'MCH PTB Risk Scoring', '1', '2024-06-11 14:25:00', '0', 'd1c06861-85e2-441c-b7a6-55a939f41a3e');
+		</sql>
+	</changeSet>
+
+	<changeSet id="ilara-20240611143000" author="nkorir">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM encounter_type WHERE uuid = 'e6da8af1-b3de-408f-b40a-117d9c097791';</sqlCheck>
+		</preConditions>
+		<comment>
+			Creates the Cesarean Section Risk Scoring encounter type if it doesn't exist
+		</comment>
+		<sql>
+			INSERT INTO encounter_type (`name`, `description`, `creator`, `date_created`, `retired`, `uuid`)
+			VALUES ('CS Risk Scoring', 'MCH Cesarean Section Risk Scoring', '1', '2024-06-11 14:30:00', '0', 'e6da8af1-b3de-408f-b40a-117d9c097791');
+		</sql>
+	</changeSet>
+
 </databaseChangeLog>
