@@ -81,57 +81,7 @@ public class PatientUtilsFragmentController {
                 return Collections.singletonList(SimpleObject.create("message", "ERROR EVALUATING '" + calc.getFlagMessage() + "'"));
             }
         }
-        try {
-            String message = getRiskStratification(patientId);
-            if (message != null) {
-                String riskStratification = message.replaceAll("_", " ").toLowerCase();
-                flags.add(SimpleObject.create("message", riskStratification.substring(0, 1).toUpperCase() + riskStratification.substring(1)));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         return flags;
-    }
-
-    public String getRiskStratification(int patientId) throws SQLException {
-        final String[] riskStratification = new String[1];
-        final String selectRiskStratificationSql = "select risk_stratification from risk_stratification_encounter where patient_id ='" + patientId + "';";
-        DbSessionFactory sf = Context.getRegisteredComponents(DbSessionFactory.class).get(0);
-        Transaction tx = null;
-        try {
-
-            tx = sf.getHibernateSessionFactory().getCurrentSession().beginTransaction();
-            final Transaction finalTx = tx;
-            sf.getCurrentSession().doWork(new Work() {
-
-                @Override
-                public void execute(Connection connection) throws SQLException {
-                    PreparedStatement statement = connection.prepareStatement(selectRiskStratificationSql);
-                    try {
-
-                        ResultSet resultSet = statement.executeQuery();
-                        if (resultSet != null) {
-                            ResultSetMetaData metaData = resultSet.getMetaData();
-
-                            while (resultSet.next()) {
-                                riskStratification[0] = resultSet.getString("risk_stratification");
-                            }
-                        }
-                        finalTx.commit();
-                    } finally {
-                        try {
-                            if (statement != null) {
-                                statement.close();
-                            }
-                        } catch (Exception e) {
-                        }
-                    }
-                }
-            });
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Unable to execute query", e);
-        }
-        return riskStratification[0];
     }
 
     /**

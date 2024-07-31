@@ -163,7 +163,6 @@ public class ANCRegisterReportBuilder extends AbstractReportBuilder {
         dsd.addColumn("Facility Referred From", new ANCFacilityReferredFromDataDefinition(), "");
         dsd.addColumn("Facility Referred To", new ANCFacilityReferredToDataDefinition(), "");
         dsd.addColumn("Next Appointment Date", new ANCNextAppointmentDateDataDefinition(), "", new DateConverter(ENC_DATE_FORMAT));
-        dsd.addColumn("Risk Stratification", new ANCRiskStratificationDataDefinition(), "");
         dsd.addColumn("Clinical Notes", new ANCClinicalNotesDataDefinition(), "");
         dsd.addColumn("Practitioner type", new ANCPractitionerTypeDataDefinition(), "");
         dsd.addColumn("Practitioner name", new ANCPractitionerNameDataDefinition(), "");
