@@ -49,6 +49,7 @@ public class VisitCompletedFormsFragmentController {
 			Form form = encounter.getForm();
 			EncounterType encounterType = encounter.getEncounterType();
 
+//			Filter out voided encounters plus Mihic risk scoring encounters
 			if (encounter.isVoided() || form == null || encounterType.getEncounterTypeId() == 76 || encounterType.getEncounterTypeId() == 77 || encounterType.getEncounterTypeId() == 78 || encounterType.getEncounterTypeId() == 79) {
 				continue;
 			}
