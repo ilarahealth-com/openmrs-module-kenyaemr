@@ -47,7 +47,8 @@ public class VisitCompletedFormsFragmentController {
 		for (Encounter encounter : allEncounters) {
 			Form form = encounter.getForm();
 
-			if (encounter.isVoided() || form == null) {
+			if (encounter.isVoided() || form == null || form.getFormId() == 76) ||form.getFormId() == 77 ) ||
+			form.getFormId() == 78 ) ||form.getFormId() == 79){
 				continue;
 			}
 
