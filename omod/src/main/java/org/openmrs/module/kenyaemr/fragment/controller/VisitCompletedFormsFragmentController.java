@@ -10,6 +10,7 @@
 package org.openmrs.module.kenyaemr.fragment.controller;
 
 import org.openmrs.Encounter;
+import org.openmrs.EncounterType;
 import org.openmrs.Form;
 import org.openmrs.Visit;
 import org.openmrs.module.appframework.domain.AppDescriptor;
@@ -46,8 +47,10 @@ public class VisitCompletedFormsFragmentController {
 		List<Encounter> encounters = new ArrayList<Encounter>();
 		for (Encounter encounter : allEncounters) {
 			Form form = encounter.getForm();
+			EncounterType encounterType = encounter.getEncounterType();
 
-			if (encounter.isVoided() || form == null) {
+//			Filter out voided encounters plus Mihic risk scoring encounters
+			if (encounter.isVoided() || form == null || encounterType.getEncounterTypeId() == 76 || encounterType.getEncounterTypeId() == 77 || encounterType.getEncounterTypeId() == 78 || encounterType.getEncounterTypeId() == 79) {
 				continue;
 			}
 
