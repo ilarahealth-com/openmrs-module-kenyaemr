@@ -69,7 +69,7 @@
 %>
 <script type="text/javascript" src="/${ contextPath }/moduleResources/kenyaemr/scripts/KenyaAddressHierarchy.js"></script>
 
-<form id="edit-patient-form" method="post" action="${ui.actionLink("kenyaemr", "patient/editPatient", "savePatient")}">
+<form id="edit-patient-form" method="post" action="${ui.actionLink("kenyaemr", "patient/editPatient", "savePatient")}" onsubmit="return validateNationalId();">
     <% if (command.original) { %>
     <input type="hidden" name="personId" value="${command.original.id}"/>
     <% } %>
