@@ -104,9 +104,8 @@
                 <tr>
                     <td class="ke-field-label">Study ID Number *</td>
                     <td>
-                        <span class="ke-field-content">
-                            ${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "nationalIdNumber"])}
-                        </span>
+                        ${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "nationalIdNumber"])}
+                        <span id="nationalId-error" class="error" style="color: red; display: none;">Please enter the Study ID Number.</span>
                     </td>
                     <td class="ke-field-instructions"><% if (!command.nationalIdNumber) { %>(If the patient is below 18 years of age, enter the guardian`s National Identification Number if available.)<% } %></td>
                 </tr>
@@ -371,5 +370,21 @@ ${ui.includeFragment("kenyaui", "widget/dialogForm", [
             jQuery('#ward').append(jQuery("<option></option>").attr("value", kenyaAddressHierarchy[selectedCounty][selectedsubCounty][scKey].facility).text(kenyaAddressHierarchy[selectedCounty][selectedsubCounty][scKey].facility));
 
         }
+    }
+
+    function validateNationalId() {
+        var nationalId = document.querySelector('[name="nationalIdNumber"]').value;
+        var errorElement = document.getElementById('nationalId-error');
+
+        if (!nationalId) {
+            // Show error message and highlight field
+            errorElement.style.display = 'inline';
+            return false; // Prevent form submission
+        } else {
+            // Hide error message if validation passes
+            errorElement.style.display = 'none';
+        }
+
+        return true; // Proceed with form submission
     }
 </script>
