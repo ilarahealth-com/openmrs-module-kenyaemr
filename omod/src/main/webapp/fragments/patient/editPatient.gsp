@@ -376,7 +376,9 @@ ${ui.includeFragment("kenyaui", "widget/dialogForm", [
         var nationalId = document.querySelector('[name="nationalIdNumber"]').value;
         var errorElement = document.getElementById('nationalId-error');
 
+        console.log("Validating National ID: ", nationalId);
         if (!nationalId) {
+            console.log("No National ID entered.");
             // Show error message and highlight field
             errorElement.style.display = 'inline';
             return false; // Prevent form submission
@@ -387,4 +389,13 @@ ${ui.includeFragment("kenyaui", "widget/dialogForm", [
 
         return true; // Proceed with form submission
     }
+
+    jQuery(function() {
+        jQuery('#edit-patient-form').submit(function(e) {
+            if (!validateNationalId()) {
+                e.preventDefault(); // Prevent form submission
+            }
+        });
+    });
+
 </script>
