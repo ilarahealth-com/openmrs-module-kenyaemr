@@ -69,7 +69,7 @@
 %>
 <script type="text/javascript" src="/${ contextPath }/moduleResources/kenyaemr/scripts/KenyaAddressHierarchy.js"></script>
 
-<form id="edit-patient-form" method="post" action="${ui.actionLink("kenyaemr", "patient/editPatient", "savePatient")}" onsubmit="return validateNationalId();">
+<form id="edit-patient-form" method="post" action="${ui.actionLink("kenyaemr", "patient/editPatient", "savePatient")}">
     <% if (command.original) { %>
     <input type="hidden" name="personId" value="${command.original.id}"/>
     <% } %>
@@ -368,31 +368,4 @@ ${ui.includeFragment("kenyaui", "widget/dialogForm", [
 
         }
     }
-
-    function validateNationalId() {
-        var nationalId = document.querySelector('[name="nationalIdNumber"]').value;
-        var errorElement = document.getElementById('nationalId-error');
-
-        console.log("Validating National ID: ", nationalId);
-        if (!nationalId) {
-            console.log("No National ID entered.");
-            // Show error message and highlight field
-            errorElement.style.display = 'inline';
-            return false; // Prevent form submission
-        } else {
-            // Hide error message if validation passes
-            errorElement.style.display = 'none';
-        }
-
-        return true; // Proceed with form submission
-    }
-
-    jQuery(function() {
-        jQuery('#edit-patient-form').submit(function(e) {
-            if (!validateNationalId()) {
-                e.preventDefault(); // Prevent form submission
-            }
-        });
-    });
-
 </script>
