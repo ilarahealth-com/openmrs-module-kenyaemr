@@ -385,6 +385,10 @@ public class EditPatientFragmentController {
 
 			validateField(errors, "personAddress");
 
+			if (nationalIdNumber == null){
+				errors.rejectValue("nationalIdNumber", "Please provide Study ID");
+			}
+
 			validateIdentifierField(errors, "nationalIdNumber", CommonMetadata._PatientIdentifierType.NATIONAL_ID);
 			validateIdentifierField(errors, "patientClinicNumber", CommonMetadata._PatientIdentifierType.PATIENT_CLINIC_NUMBER);
 			validateIdentifierField(errors, "uniquePatientNumber", HivMetadata._PatientIdentifierType.UNIQUE_PATIENT_NUMBER);
