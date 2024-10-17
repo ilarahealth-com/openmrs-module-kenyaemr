@@ -385,9 +385,7 @@ public class EditPatientFragmentController {
 
 			validateField(errors, "personAddress");
 
-			System.out.println("Entered nationalIdNumber: " + nationalIdNumber);
 			if (StringUtils.isBlank(nationalIdNumber)) {
-				System.out.println("nationalIdNumber is blank");
 				errors.rejectValue("nationalIdNumber", "Please provide Study ID");
 			}
 
