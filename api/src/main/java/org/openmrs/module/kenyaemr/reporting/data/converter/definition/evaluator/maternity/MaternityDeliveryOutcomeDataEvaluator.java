@@ -10,7 +10,7 @@
 package org.openmrs.module.kenyaemr.reporting.data.converter.definition.evaluator.maternity;
 
 import org.openmrs.annotation.Handler;
-import org.openmrs.module.kenyaemr.reporting.data.converter.definition.maternity.MaternityInitiatedBFWithinOneHourDataDefinition;
+import org.openmrs.module.kenyaemr.reporting.data.converter.definition.maternity.MaternityDeliveryOutcomeDataDefinition;
 import org.openmrs.module.reporting.data.person.EvaluatedPersonData;
 import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;
 import org.openmrs.module.reporting.data.person.evaluator.PersonDataEvaluator;
@@ -22,11 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
-/**
- * Evaluates a PersonDataDefinition
- */
-@Handler(supports= MaternityInitiatedBFWithinOneHourDataDefinition.class, order=50)
-public class MaternityInitiatedBFWithinOneHourDataEvaluator implements PersonDataEvaluator {
+@Handler(supports = MaternityDeliveryOutcomeDataDefinition.class, order = 50)
+public class MaternityDeliveryOutcomeDataEvaluator implements PersonDataEvaluator {
 
     @Autowired
     private EvaluationService evaluationService;
@@ -34,10 +31,7 @@ public class MaternityInitiatedBFWithinOneHourDataEvaluator implements PersonDat
     public EvaluatedPersonData evaluate(PersonDataDefinition definition, EvaluationContext context) throws EvaluationException {
         EvaluatedPersonData c = new EvaluatedPersonData(definition, context);
 
-        String qry = "select\n" +
-                "  patient_id,\n" +
-                "  infant_one_birth_with_deformity \n" +
-                "from kenyaemr_etl.etl_mchs_delivery;";
+        String qry = "select distinct patient_id, delivery_outcome from kenyaemr_etl.etl_mchs_delivery;";
 
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();
         queryBuilder.append(qry);

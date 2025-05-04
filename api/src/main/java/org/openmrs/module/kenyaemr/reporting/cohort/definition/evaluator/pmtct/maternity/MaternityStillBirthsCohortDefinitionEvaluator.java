@@ -43,7 +43,9 @@ public class MaternityStillBirthsCohortDefinitionEvaluator implements CohortDefi
         if (definition == null)
             return null;
 
-        String query = "select ld.patient_id from kenyaemr_etl.etl_mchs_delivery ld where ld.baby_condition in (135436,159916,125872);";
+        String query = "select ld.patient_id from kenyaemr_etl.etl_mchs_delivery ld where (ld.infant_one_condition = 'Fresh still birth' or ld.infant_one_condition ='Macerated still birth') or " +
+                "(ld.infant_two_condition = 'Fresh still birth' or ld.infant_two_condition ='Macerated still birth') or " +
+                "(ld.infant_three_condition = 'Fresh still birth' or ld.infant_three_condition ='Macerated still birth');";
         Cohort newCohort = new Cohort();
 
         SqlQueryBuilder builder = new SqlQueryBuilder();

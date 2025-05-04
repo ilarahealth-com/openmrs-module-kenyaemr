@@ -36,7 +36,7 @@ public class MaternityBirthWeightDataEvaluator implements PersonDataEvaluator {
 
         String qry = "select\n" +
                 "  patient_id,\n" +
-                "  birth_weight\n" +
+                "  infant_one_weight\n" +
                 "from kenyaemr_etl.etl_mchs_delivery;";
 
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();

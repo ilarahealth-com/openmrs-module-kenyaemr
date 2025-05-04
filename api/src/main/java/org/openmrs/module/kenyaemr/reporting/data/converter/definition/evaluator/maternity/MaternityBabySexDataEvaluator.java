@@ -36,7 +36,7 @@ public class MaternityBabySexDataEvaluator implements PersonDataEvaluator {
 
         String qry = "select\n" +
                 "  patient_id,\n" +
-                "  (case baby_sex when 1534 then \"Male Gender\" when 1535 then \"Female gender\" else \"\" end) as baby_sex\n" +
+                "  infant_one_gender\n" +
                 "from kenyaemr_etl.etl_mchs_delivery;";
 
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();

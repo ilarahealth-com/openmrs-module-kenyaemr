@@ -46,7 +46,9 @@ public class MaternityLiveBirthsCohortDefinitionEvaluator implements CohortDefin
         if (definition == null)
             return null;
 
-        String query = "select ld.patient_id from kenyaemr_etl.etl_mchs_delivery ld where ld.baby_condition in (151849,164815,164816);";
+        String query = "select ld.patient_id from kenyaemr_etl.etl_mchs_delivery ld where ld.infant_one_condition = 'Live birth' or" +
+                " ld.infant_two_condition = 'Live birth' or" +
+                " ld.infant_three_condition = 'Live birth';";
 
         Cohort newCohort = new Cohort();
         SqlQueryBuilder builder = new SqlQueryBuilder();
